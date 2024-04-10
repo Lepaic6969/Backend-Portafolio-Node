@@ -1,0 +1,40 @@
+{
+    "name":"Video-Tube",
+    "short_description":"Proyecto desarrollado con HTML, CSS puro y JavaScript Vanilla",
+    "complete_description":"Es un aplicativo web en el que se pueden visualizar videos, filtrarlos dependiendo de gustos entre música, programación y diseño UX/UI. El buscador y el botón de agregar nuevo video en la página principal son completamente funcionales. El aplicativo es responsivo, se adapta a desktop, tablet y móvil.",
+    "production_url":"https://verdant-hamster-c3713d.netlify.app/",
+    "code_url":"https://github.com/Lepaic6969/VideoTube",
+    "image":"https://themeforest.img.customer.envatousercontent.com/files/85888648/screenshots/01_Preview.__large_preview.png?auto=compress%2Cformat&q=80&fit=crop&crop=top&max-h=8000&max-w=590&s=217d52fec5fe1e85a2ca0b4b1b11a93c",
+    "technologies":[
+        {
+            "name":"HTML, CSS Y JS",
+            "image":"https://miro.medium.com/v2/resize:fit:860/1*jqpygJv-Hz9i8U3MgILwKA.png"
+        }
+    ]
+}
+{
+    "name":"Electronic Devices",
+    "short_description":"Backend desarrollado con Node.js, Express, Sequelize y MySQL - Frontend desarrollado con Vue.js y Bootstrap",
+    "complete_description":"Es un aplicativo web en el que se pueden asignar diferentes dispositivos electrónicos, a los empleados de una empresa, en donde se hace un CRUD completo por cada una de las tablas o modelos de la lógica de negocio. En total son 5 modelos, un modelo para las marcas de los dispositivos, uno para la referencia del dispositivo, otro para el dispositivo electrónico, otro para el empleado y por último una tabla para la asignación del dispositivo electrónico a un empleado en cuestión.",
+    "production_url":"https://devices-market.netlify.app/",
+    "code_url":"https://github.com/Lepaic6969/devices-market",
+    "image":"https://www.codrey.com/wp-content/uploads/2017/12/Consumer-Electronics-1.png",
+    "technologies":[
+        {
+            "name":"Node.js y Express",
+            "image":"https://www.jacobsoft.com.mx/wp-content/uploads/2020/04/node-js-736399_960_720-2.png"
+        },
+        {
+            "name":"Vue.js",
+            "image":"https://i0.wp.com/blog.webtraining.zone/wp-content/uploads/2018/01/curso-profesional-vue.jpg?resize=825%2C510&ssl=1"
+        }
+    ]
+}
+
+
+
+
+{
+    "name":"Node.js y Express",
+    "image":"https://www.jacobsoft.com.mx/wp-content/uploads/2020/04/node-js-736399_960_720-2.png"
+}
