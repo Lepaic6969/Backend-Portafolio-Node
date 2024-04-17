@@ -7,8 +7,13 @@ const projectSchema=new mongoose.Schema(
         complete_description:String,
         production_url:String,
         code_url:String,
-        image:String,
-        technologies:Array
+        technologies:Array,
+        image:{
+            public_id:String,
+            secure_url:String
+        }
+    },{
+        timestamps:true
     }
 );
 

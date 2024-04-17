@@ -1,7 +1,8 @@
 const express=require('express');
 const router=express.Router();
 const Technology=require('../models/technology.models'); //Modelo previamente creado
-
+const {uploadImage,deleteImage}=require('../helpers/cloudinary');
+const fs=require('fs');
 
 //********** [MIDDLEWARE] **********/
 //A este Middleware le paso el id de algún registro y me retorna el registro correspondiente.
@@ -52,19 +53,30 @@ router.get('/',async(req,res)=>{
 
 //********** [POST] **********/
 router.post('/',async(req,res)=>{
-    const {name,image}=req?.body;
-    if(!name||!image){
+    const {name}=req?.body;
+    if(!name){
         //400 -> Bad Request
-        return res.status(400).json({message:'Recuerde enviar todos los campos en el Body de la petición'});
+        return res.status(400).json({message:'Recuerde enviar el nombre, este campo es obligatorio'});
     }
 
      //A partir de aquí todo está bien y me dedico es a generar y guardar el nuevo registro
-     const technology=new Technology(
-        {
-            name,
-            image
+    const technology=new Technology({name});
+    //Si viene alguna imagen la proceso y guardo su información en el nuevo documento
+    if(req.files?.image){
+        const {public_id,secure_url}=await uploadImage(req.files.image.tempFilePath);
+        technology.image={
+            public_id,
+            secure_url
         }
-    );
+        //Una vez todo listo en cloudinary, elimino la imagen de la carpeta de archivos temporales
+        fs.unlink(req.files.image.tempFilePath,(err)=>{
+            if(err){
+                console.error('Error al eliminar el archivo temporal');
+                return;
+            }
+            console.log('Archivo temporal eliminado correctamente');
+        });
+    }
     try{
         const newTechnology=await technology.save();
         console.log(newTechnology)
@@ -86,19 +98,42 @@ router.get('/:id',getTechnology,async(req,res)=>{
 router.put('/:id',getTechnology,async(req,res)=>{
     //Se debe enviar en el Body al menos algún parámetro a cambiar, de lo contrario no tiene sentido la
     //actualización.
-    const {name,image}=req?.body;
-    if(!name && !image){
+    const {name}=req?.body;
+    if(!name && !req.files?.image){
         //400 -> Bad Request
         return res.status(400).json({
             message:'Debe enviar al menos uno de estos campos a actualizar: name,image'
         });
+    }
+    //Si envía una imagen debo procesarla
+    let uploadedImage=null;
+    if(req.files?.image){
+       const {public_id,secure_url}= await uploadImage(req.files.image.tempFilePath);
+       uploadedImage={
+        public_id,
+        secure_url
+       }
+        //Una vez procesada la nueva imagen, la elimino de la carpeta de arcivos temporales
+        fs.unlink(req.files.image.tempFilePath,(err)=>{
+            if(err){
+                console.error('Error al eliminar el archivo temporal');
+                return;
+            }
+            console.log('Archivo temporal eliminado correctamente');
+        });
+
+        //Procedo a borrar la antigua imagen de cloudinary
+        //const technology=await Technology.findById(req.params.id);
+        if(res.technology.image.public_id){
+            await deleteImage(res.technology.image.public_id);
+        }
     }
     try{
         const technology=res.technology;
 
         //Actualizo los cambios de la tecnología,
         technology.name=name || technology.name;
-        technology.image=image || technology.image;
+        technology.image=uploadedImage || technology.image;
 
 
         //Una vez actualizado el proyecto hacemos la actualización en Base de Datos
@@ -122,6 +157,10 @@ router.delete('/:id',getTechnology,async(req,res)=>{
             _id:req.params.id
         });
         res.json(technology);
+        //Una vez eliminado el documento en Base de Datos, debemos eliminar la imagen correspondiente de cloudinary
+        if(technology.image.public_id){
+            await deleteImage(technology.image.public_id);
+        }
     }catch(error){
         //500 -> Error interno del servidor
         res.status(500).json({message:error.message});

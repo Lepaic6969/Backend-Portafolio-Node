@@ -1,6 +1,7 @@
 const express=require('express');
 const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
+const fileUpload=require('express-fileupload'); //Para poder recibir las imágenes
 const {config}=require('dotenv');
 config();
 
@@ -11,8 +12,7 @@ const technologiesRoutes=require('./routes/technology.routes');
 //Inicializo la app...
 const app=express();
 app.use(bodyParser.json()); //Para los Body que recibimos en las peticiones HTTP
-//app.use(bodyParser.urlencoded({ extended: true })); //Este sería para el Form Data, del resto se trabajaría igual
-
+app.use(fileUpload({ useTempFiles : true, tempFileDir : './uploads'})); //Para poder recibir las imágenes
 
 //Nos conectamos con la base de datos que previamente hemos dado de alta...
 mongoose.connect(process.env.MONGO_URL,{dbName:process.env.MONGO_DB_NAME});
