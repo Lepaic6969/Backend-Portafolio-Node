@@ -136,9 +136,9 @@ router.put('/:id',getProject,async(req,res)=>{
         });
 
         //Ahora hay que eliminar la imagen vieja de cloudinary
-        const project=await Project.findById(req.params.id);
-        if(project.image.public_id){
-            await deleteImage(project.image.public_id);
+        //const project=await Project.findById(req.params.id);
+        if(res.project.image.public_id){
+            await deleteImage(res.project.image.public_id);
         }
     }
     try{
