@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Este es el primer avance del Backend de mi portafolio",
   "main": "app.js",
+  "type":"module",
   "scripts": {
     "dev": "nodemon src/app.js"
   },

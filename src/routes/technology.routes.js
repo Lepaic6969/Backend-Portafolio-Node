@@ -1,8 +1,14 @@
-const express=require('express');
+// const express=require('express');
+// const router=express.Router();
+// const Technology=require('../models/technology.models'); //Modelo previamente creado
+// const {uploadImage,deleteImage}=require('../helpers/cloudinary');
+// const fs=require('fs');
+
+import express from 'express';
 const router=express.Router();
-const Technology=require('../models/technology.models'); //Modelo previamente creado
-const {uploadImage,deleteImage}=require('../helpers/cloudinary');
-const fs=require('fs');
+import Technology from '../models/technology.models.js'; //Modelo previamente creado
+import {uploadImage,deleteImage} from '../helpers/cloudinary.js';
+import fs from 'fs';
 
 //********** [MIDDLEWARE] **********/
 //A este Middleware le paso el id de algún registro y me retorna el registro correspondiente.
@@ -174,5 +180,6 @@ router.delete('/:id',getTechnology,async(req,res)=>{
 
 
 //Exporto las rutas
-module.exports=router;
+// module.exports=router;
+export default router;
 

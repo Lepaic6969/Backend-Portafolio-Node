@@ -1,13 +1,22 @@
-const express=require('express');
-const mongoose=require('mongoose');
-const bodyParser=require('body-parser');
-const fileUpload=require('express-fileupload'); //Para poder recibir las imágenes
-const {config}=require('dotenv');
+// const express=require('express');
+// const mongoose=require('mongoose');
+// const bodyParser=require('body-parser');
+// const fileUpload=require('express-fileupload'); //Para poder recibir las imágenes
+// const {config}=require('dotenv');
+// config();
+
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import fileUpload from 'express-fileupload'; //Para poder recibir las imágenes
+import {config} from 'dotenv';
 config();
 
 //Importo las rutas...
-const projectRoutes=require('./routes/project.routes');
-const technologiesRoutes=require('./routes/technology.routes');
+// const projectRoutes=require('./routes/project.routes');
+// const technologiesRoutes=require('./routes/technology.routes');
+import projectRoutes from './routes/project.routes.js';
+import technologiesRoutes from './routes/technology.routes.js';
 
 //Inicializo la app...
 const app=express();

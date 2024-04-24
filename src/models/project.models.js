@@ -1,4 +1,5 @@
-const mongoose=require('mongoose');
+// const mongoose=require('mongoose');
+import mongoose from 'mongoose';
 
 const projectSchema=new mongoose.Schema(
     {
@@ -13,8 +14,10 @@ const projectSchema=new mongoose.Schema(
             secure_url:String
         }
     },{
-        timestamps:true
+        timestamps:true,
+        versionKey:false
     }
 );
 
-module.exports=mongoose.model('Project',projectSchema);
+// module.exports=mongoose.model('Project',projectSchema);
+export default mongoose.model('Project',projectSchema);

@@ -1,8 +1,13 @@
-const express=require('express');
+// const express=require('express');
+// const router=express.Router();
+// const Project=require('../models/project.models') //Me traigo el modelo en cuestión
+// const {uploadImage,deleteImage}=require('../helpers/cloudinary'); //Las funciones de subir y eliminar imagenes en cloudinary
+// const fs=require('fs');
+import express from 'express';
 const router=express.Router();
-const Project=require('../models/project.models') //Me traigo el modelo en cuestión
-const {uploadImage,deleteImage}=require('../helpers/cloudinary'); //Las funciones de subir y eliminar imagenes en cloudinary
-const fs=require('fs');
+import Project from '../models/project.models.js'; //Me traigo el modelo en cuestión
+import {uploadImage,deleteImage} from '../helpers/cloudinary.js'; //Las funciones de subir y eliminar imagenes en cloudinary
+import fs from 'fs';
 
 //********** [MIDDLEWARE] **********/
 //A este Middleware le paso el id de algún registro y me retorna el registro correspondiente.
@@ -185,4 +190,5 @@ router.delete('/:id',getProject,async(req,res)=>{
 });
 
 //Exporto las rutas
-module.exports=router;
+// module.exports=router;
+export default router;
