@@ -1,20 +1,12 @@
-// const express=require('express');
-// const mongoose=require('mongoose');
-// const bodyParser=require('body-parser');
-// const fileUpload=require('express-fileupload'); //Para poder recibir las imágenes
-// const {config}=require('dotenv');
-// config();
-
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload'; //Para poder recibir las imágenes
+import morgan from 'morgan';
 import {config} from 'dotenv';
 config();
 
 //Importo las rutas...
-// const projectRoutes=require('./routes/project.routes');
-// const technologiesRoutes=require('./routes/technology.routes');
 import projectRoutes from './routes/project.routes.js';
 import technologiesRoutes from './routes/technology.routes.js';
 
@@ -22,6 +14,7 @@ import technologiesRoutes from './routes/technology.routes.js';
 const app=express();
 app.use(bodyParser.json()); //Para los Body que recibimos en las peticiones HTTP
 app.use(fileUpload({ useTempFiles : true, tempFileDir : './uploads'})); //Para poder recibir las imágenes
+app.use(morgan('dev'));
 
 //Nos conectamos con la base de datos que previamente hemos dado de alta...
 mongoose.connect(process.env.MONGO_URL,{dbName:process.env.MONGO_DB_NAME});

@@ -1,8 +1,5 @@
 import express from 'express';
 const router=express.Router();
-import Project from '../models/project.models.js'; //Me traigo el modelo en cuestión
-import {uploadImage,deleteImage} from '../helpers/cloudinary.js'; //Las funciones de subir y eliminar imagenes en cloudinary
-import fs from 'fs';
 
 //Importo los Middlewares
 import { getProject } from '../middlewares/getProject.js';

@@ -1,6 +1,3 @@
-// const {v2}=require('cloudinary');
-// const {config}=require('dotenv'); //Para las variables de entorno
-// config();
 import {v2} from 'cloudinary';
 import {config} from 'dotenv'; //Para las variables de entorno
 config();
@@ -26,8 +23,5 @@ export const deleteImage=async(public_id)=>{
     return await v2.uploader.destroy(public_id);
 }
 
-// module.exports={
-//     uploadImage,
-//     deleteImage
-// };
+
 

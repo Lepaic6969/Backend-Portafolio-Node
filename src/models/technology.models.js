@@ -1,4 +1,3 @@
-// const mongoose=require('mongoose');
 import mongoose from 'mongoose';
 
 const technologySchema=new mongoose.Schema(
@@ -15,5 +14,4 @@ const technologySchema=new mongoose.Schema(
     }
 );
 
-// module.exports=mongoose.model('Technology',technologySchema);
 export default mongoose.model('Technology',technologySchema);

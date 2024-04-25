@@ -98,7 +98,7 @@ export const updateProject=async(req,res)=>{
         //const project=await Project.findById(req.params.id);
         if(res.project.image.public_id){
             await deleteImage(res.project.image.public_id);
-            console.log("Imagen vieja de cloudinary borrada.");
+            console.log("Imagen antigua de cloudinary ha sido actualizada.");
         }
     }
     try{
