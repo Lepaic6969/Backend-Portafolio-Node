@@ -1,14 +1,17 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload'; //Para poder recibir las imágenes
 import morgan from 'morgan';
 import {config} from 'dotenv';
 config();
 
+//Importo la conexión con DB
+import {connectToDb} from './helpers/mongoConnection.js';
+
 //Importo las rutas...
 import projectRoutes from './routes/project.routes.js';
 import technologiesRoutes from './routes/technology.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 //Inicializo la app...
 const app=express();
@@ -17,12 +20,12 @@ app.use(fileUpload({ useTempFiles : true, tempFileDir : './uploads'})); //Para p
 app.use(morgan('dev'));
 
 //Nos conectamos con la base de datos que previamente hemos dado de alta...
-mongoose.connect(process.env.MONGO_URL,{dbName:process.env.MONGO_DB_NAME});
-const db=mongoose.connection;
+connectToDb();
 
 //Integramos las rutas a la app
 app.use('/projects',projectRoutes);
 app.use('/technologies',technologiesRoutes);
+app.use('/auth',authRoutes);
 
 const port=process.env.PORT || 3000;
 

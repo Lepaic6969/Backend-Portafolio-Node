@@ -3,6 +3,7 @@ const router=express.Router();
 
 //Importo los Middlewares
 import { getProject } from '../middlewares/getProject.js';
+import { verifyToken } from '../middlewares/verifyToken.js'; 
 
 //Importo los Controllers
 import {getProjects,getProjectById,createProject,updateProject,deleteProject} from '../controllers/product.controller.js';
@@ -11,9 +12,9 @@ import {getProjects,getProjectById,createProject,updateProject,deleteProject} fr
 router.get('/',getProjects);
 router.get('/:id',getProject,getProjectById);
 //Estas rutas modifican la base de datos, por tanto son las rutas que debo proteger
-router.post('/',createProject);
-router.put('/:id',getProject,updateProject);
-router.delete('/:id',getProject,deleteProject);
+router.post('/',verifyToken,createProject);
+router.put('/:id',[verifyToken,getProject],updateProject);
+router.delete('/:id',[verifyToken,getProject],deleteProject);
 
 
 
