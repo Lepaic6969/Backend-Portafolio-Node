@@ -2,6 +2,7 @@ import Technology from '../models/technology.models.js';
 import fs from 'fs';
 import {uploadImage,deleteImage} from '../helpers/cloudinary.js';
 
+
 export const getTechnologies=async(req,res)=>{
     try{
         const technologies=await Technology.find();
@@ -9,7 +10,7 @@ export const getTechnologies=async(req,res)=>{
             //204 -> No Content
             return res.status(201).json([])
         }
-        let technologies_response=technologies.map(tech=>({_id:tech._id,name:tech.name,image:tech.image.secure_url}));
+        const technologies_response=technologies.map(tech=>({_id:tech._id,name:tech.name,image:tech.image.secure_url}));
         res.json(technologies_response);
     }catch(error){
         //500 -> Error Interno del Servidor
@@ -19,7 +20,7 @@ export const getTechnologies=async(req,res)=>{
 
 
 export const getTechnologyById=async(req,res)=>{
-    let technology_response={_id:res.technology._id,name:res.technology.name,image:res.technology.image.secure_url};
+    const technology_response={_id:res.technology._id,name:res.technology.name,image:res.technology.image.secure_url};
     res.json(technology_response);
 }
 

@@ -1,6 +1,8 @@
 import Project from '../models/project.models.js';
 import { uploadImage,deleteImage } from '../helpers/cloudinary.js';
 import fs from 'fs';
+//Importo la función que me ayuda a complementar la información de las tecnologías...
+import { complementTech } from '../helpers/complementTech.js';
 
 export const getProjects=async(req,res)=>{
     try{
@@ -10,7 +12,19 @@ export const getProjects=async(req,res)=>{
             //204 -> No Content
             return res.status(204).json([]);
         }
-        res.json(projects)
+        const projects_response=projects.map(project=>(
+            {
+                _id:project._id,
+                name:project.name,
+                short_description:project.short_description,
+                complete_description:project.complete_description,
+                image:project.image.secure_url,
+                production_url:project.production_url,
+                code_url:project.code_url,
+                technologies:project.technologies
+            }
+        ));
+        res.json(projects_response);
     }catch(error){
         //500 -> Error interno del servidor
         res.status(500).json({message:error.message})
@@ -38,7 +52,7 @@ export const createProject=async(req,res)=>{
             complete_description,
             production_url,
             code_url,
-            technologies
+            technologies:await complementTech(technologies)
         }
     );
     //Si viene alguna imagen la subo a cloudinary y agrego la url al nuevo documento...
@@ -111,7 +125,7 @@ export const updateProject=async(req,res)=>{
         project.production_url=production_url || project.production_url,
         project.code_url=code_url || project.code_url,
         project.image=uploadedImage || project.image,
-        project.technologies=technologies || project.technologies
+        project.technologies=await complementTech(technologies) || project.technologies
 
         //Una vez actualizado el proyecto hacemos la actualización en Base de Datos
 
